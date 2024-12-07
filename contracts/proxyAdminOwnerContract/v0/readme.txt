@@ -1,3 +1,0 @@
-owner address:
-
-eoa wallet
