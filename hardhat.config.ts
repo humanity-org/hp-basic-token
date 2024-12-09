@@ -1,6 +1,7 @@
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
 import { vars } from "hardhat/config"
+import "@nomicfoundation/hardhat-verify";
 
 
 const Sepolia_TESTNET_PRIVATE_KEY = vars.get("SEPOLIA_TESTNET_PRIVATE_KEY")
@@ -37,7 +38,7 @@ const config: HardhatUserConfig = {
       chainId: 421614,
       accounts: [Sepolia_TESTNET_PRIVATE_KEY]
     },
-  }
+  },
 };
 
 export default config;

@@ -2,6 +2,7 @@ import { expect } from "chai"
 import { ignition, ethers } from 'hardhat'
 
 import BMTokenModule from "../ignition/modules/BMToken"
+import BMTokenUpgradeModule from "../ignition/modules/BMTokenUpgrade"
 
 describe("BMToken", function() {
     describe("Deployment", async function() {
@@ -14,6 +15,8 @@ describe("BMToken", function() {
             await bmToken.burn(await signer1.getAddress(), 1)
             balance = await bmToken.balanceOf(await signer1.getAddress())
             expect(balance).equal(1)
+            const { bmTokenUpgrade } = await ignition.deploy(BMTokenUpgradeModule, { parameters: { BMTokenModule: { multisig: await signer0.getAddress() }}})
+            await bmTokenUpgrade.test()
         })
     })
 })
