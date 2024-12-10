@@ -2,5 +2,6 @@
   "BMTokenModule#BMTokenImplementation": "0x26b9867a7b5c45899525CD3ECC038047785e5446",
   "BMTokenModule#TransparentUpgradeableProxy": "0x4A813F287e3964Ec403e50430Ded9B71C1aeC89D",
   "BMTokenModule#BMToken": "0x4A813F287e3964Ec403e50430Ded9B71C1aeC89D",
-  "BMTokenModule#ProxyAdmin": "0x3efd06861Ac03c40Ef01A64DA84D0DBab7E0928B"
+  "BMTokenModule#ProxyAdmin": "0x3efd06861Ac03c40Ef01A64DA84D0DBab7E0928B",
+  "BMTokenUpgradeModule#BMTokenUpgradeImplementation": "0xB00208230516b73A79DBe38809fAc538C367d338"
 }
