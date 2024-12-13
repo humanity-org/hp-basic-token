@@ -2,12 +2,13 @@ import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
 import { vars } from "hardhat/config"
 import "@nomicfoundation/hardhat-verify";
-
+import "solidity-docgen"
 
 const Sepolia_TESTNET_PRIVATE_KEY = vars.get("SEPOLIA_TESTNET_PRIVATE_KEY")
 
 const config: HardhatUserConfig = {
   solidity: "0.8.28",
+  docgen: {},
   gasReporter: {
     enabled: true,
   },
