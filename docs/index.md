@@ -2,6 +2,8 @@
 
 ## BMToken
 
+A simple Ownable and Upgradeable token.
+
 ### constructor
 
 ```solidity
@@ -55,6 +57,8 @@ Burn tokens from an address. Only the owner can call this.
 | _value | uint256 | the amount of tokens to burn from the address. |
 
 ## BMTokenUpgrade
+
+Test contract to verify if adding functions to the base token works. It does. You can ignore this.
 
 ### TestEvent
 

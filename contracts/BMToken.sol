@@ -4,7 +4,7 @@ pragma solidity ^0.8.28;
 import "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 
-/// @title A simple Ownable and Upgradeable token.
+/// A simple Ownable and Upgradeable token.
 contract BMToken is Initializable, OwnableUpgradeable, ERC20Upgradeable {
 
     /// @notice This contract is meant to be initialized and shouldn't do anything in its constructor.
