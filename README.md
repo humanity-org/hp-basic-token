@@ -27,6 +27,8 @@ The BMToken contract has the following functionality (apart from the standard ER
 
 Both functions are only callable by the owner of the BMToken. The tool you use to interact with the BMToken should properly display the interface of those functions.
 
+You can see documentation for these functions in the `docs` folder.
+
 # Sample Hardhat Project
 
 This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a Hardhat Ignition module that deploys that contract.
