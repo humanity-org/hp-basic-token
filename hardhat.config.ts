@@ -14,10 +14,19 @@ const config: HardhatUserConfig = {
   },
   etherscan: {
     apiKey: {
+      ethereumMainnet: "6E688KAJCMHQSX4I1B3YSQERJHYJG2B5T5",
       ethereumSepolia: "6E688KAJCMHQSX4I1B3YSQERJHYJG2B5T5",
       arbitrumSepolia: "6E688KAJCMHQSX4I1B3YSQERJHYJG2B5T5",
     },
     customChains: [
+      {
+        network: "ethereumMainnet",
+        chainId: 1,
+        urls: {
+          apiURL: "https://api.etherscan.io/api",
+          browserURL: "https://etherscan.io/",
+        },
+      },
       {
         network: "ethereumSepolia",
         chainId: 11155111,
@@ -29,6 +38,11 @@ const config: HardhatUserConfig = {
     ]
   },
   networks: {
+    ethereumMainnet: {
+      url: "https://mainnet.infura.io/v3/013d918b9e1244029dcff95249ed2e02",
+      chainId: 1,
+      accounts: [Sepolia_TESTNET_PRIVATE_KEY]
+    },
     ethereumSepolia: {
       url: "https://sepolia.infura.io/v3/013d918b9e1244029dcff95249ed2e02",
       chainId: 11155111,

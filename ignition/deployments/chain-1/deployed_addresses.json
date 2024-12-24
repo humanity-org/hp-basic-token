@@ -1,0 +1,6 @@
+{
+  "BMTokenModule#BMTokenImplementation": "0x3938FF6A29c803556182AF4c93de1c394ddf2acb",
+  "BMTokenModule#TransparentUpgradeableProxy": "0x26b9867a7b5c45899525CD3ECC038047785e5446",
+  "BMTokenModule#BMToken": "0x26b9867a7b5c45899525CD3ECC038047785e5446",
+  "BMTokenModule#ProxyAdmin": "0x451Fc785684c78ce0Ae6214f19Dd3577245B7B5e"
+}

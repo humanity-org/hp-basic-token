@@ -16,7 +16,7 @@ contract BMToken is Initializable, OwnableUpgradeable, ERC20Upgradeable {
     /// @param _initialOwner the address to use as the initial owner of this token.
     function initialize(address _initialOwner) public initializer {
         __Ownable_init(_initialOwner);
-        __ERC20_init("BMToken", "BMTN");
+        __ERC20_init("Humanity", "H");
     }
 
     /// @notice Mint tokens to an address. Only the owner can call this.
