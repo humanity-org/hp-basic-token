@@ -1,10 +1,12 @@
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
-import { vars } from "hardhat/config"
+import { vars } from "hardhat/config";
 import "@nomicfoundation/hardhat-verify";
-import "solidity-docgen"
+import "solidity-docgen";
 
-const Sepolia_TESTNET_PRIVATE_KEY = vars.get("SEPOLIA_TESTNET_PRIVATE_KEY")
+const SEPOLIA_TESTNET_PRIVATE_KEY = vars.get("SEPOLIA_TESTNET_PRIVATE_KEY");
+const ETHERSCAN_API_KEY = vars.get("ETHERSCAN_API_KEY");
+const INFURA_API_KEY = vars.get("INFURA_API_KEY");
 
 const config: HardhatUserConfig = {
   solidity: "0.8.28",
@@ -14,9 +16,9 @@ const config: HardhatUserConfig = {
   },
   etherscan: {
     apiKey: {
-      ethereumMainnet: "6E688KAJCMHQSX4I1B3YSQERJHYJG2B5T5",
-      ethereumSepolia: "6E688KAJCMHQSX4I1B3YSQERJHYJG2B5T5",
-      arbitrumSepolia: "6E688KAJCMHQSX4I1B3YSQERJHYJG2B5T5",
+      ethereumMainnet: ETHERSCAN_API_KEY,
+      ethereumSepolia: ETHERSCAN_API_KEY,
+      arbitrumSepolia: ETHERSCAN_API_KEY,
     },
     customChains: [
       {
@@ -35,23 +37,23 @@ const config: HardhatUserConfig = {
           browserURL: "https://sepolia.etherscan.io/",
         },
       },
-    ]
+    ],
   },
   networks: {
     ethereumMainnet: {
-      url: "https://mainnet.infura.io/v3/013d918b9e1244029dcff95249ed2e02",
+      url: "https://mainnet.infura.io/v3/" + INFURA_API_KEY,
       chainId: 1,
-      accounts: [Sepolia_TESTNET_PRIVATE_KEY]
+      accounts: [SEPOLIA_TESTNET_PRIVATE_KEY],
     },
     ethereumSepolia: {
-      url: "https://sepolia.infura.io/v3/013d918b9e1244029dcff95249ed2e02",
+      url: "https://sepolia.infura.io/v3/" + INFURA_API_KEY,
       chainId: 11155111,
-      accounts: [Sepolia_TESTNET_PRIVATE_KEY]
+      accounts: [SEPOLIA_TESTNET_PRIVATE_KEY],
     },
     arbitrumSepolia: {
-      url: 'https://sepolia-rollup.arbitrum.io/rpc',
+      url: "https://sepolia-rollup.arbitrum.io/rpc",
       chainId: 421614,
-      accounts: [Sepolia_TESTNET_PRIVATE_KEY]
+      accounts: [SEPOLIA_TESTNET_PRIVATE_KEY],
     },
   },
 };
