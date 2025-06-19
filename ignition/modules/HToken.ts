@@ -3,18 +3,18 @@
 
 import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
 
-const BMTokenModule = buildModule("BMTokenModule", (m) => {
+const HTokenModule = buildModule("HTokenModule", (m) => {
   const multisig = m.getParameter("multisig")
-  const bmTokenImplementation = m.contract("BMToken", [], { id: "BMTokenImplementation"});
+  const hTokenImplementation = m.contract("HToken", [], { id: "HTokenImplementation"});
   const proxy = m.contract("TransparentUpgradeableProxy", [
-    bmTokenImplementation,
+    hTokenImplementation,
     multisig,
-    m.encodeFunctionCall(bmTokenImplementation, "initialize", [multisig])
+    m.encodeFunctionCall(hTokenImplementation, "initialize", [multisig])
   ])
   const proxyAdminAddress = m.readEventArgument(proxy, "AdminChanged", "newAdmin")
   const proxyAdmin = m.contractAt("ProxyAdmin", proxyAdminAddress)
-  const bmToken = m.contractAt("BMToken", proxy)
-  return { proxy, proxyAdmin, bmToken };
+  const hToken = m.contractAt("HToken", proxy)
+  return { proxy, proxyAdmin, hToken };
 });
 
-export default BMTokenModule;
+export default HTokenModule;
