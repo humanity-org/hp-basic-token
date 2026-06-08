@@ -24,6 +24,13 @@ Do not deploy a new proxy for either mode.
 
 ## Preconditions
 
+Set the environment:
+
+```bash
+export MAINNET_RPC_URL="https://smart-practical-meadow.ethereum-mainnet.quiknode.pro/xxxx/"
+export ETHERSCAN_API_KEY="<etherscan api key>"
+```
+
 1. Be on the intended branch.
 
    ```bash
@@ -76,9 +83,8 @@ Do not deploy a new proxy for either mode.
 6. Compile with Hardhat.
 
    ```bash
-   HARDHAT_VAR_INFURA_API_KEY="$INFURA_API_KEY" \
+   HARDHAT_VAR_MAINNET_RPC_URL="$MAINNET_RPC_URL" \
    HARDHAT_VAR_ETHERSCAN_API_KEY="$ETHERSCAN_API_KEY" \
-   HARDHAT_VAR_SEPOLIA_TESTNET_PRIVATE_KEY="$DEPLOYER_PRIVATE_KEY" \
    npx hardhat compile
    ```
 
@@ -94,23 +100,39 @@ Do not deploy a new proxy for either mode.
    1
    ```
 
-## Deploy Implementation
+## Deploy Implementation With Ledger
 
-Deploy only `ignition/modules/HTokenImplementation.ts`.
+Connect the Ledger, unlock it, and open the Ethereum app.
 
-Do not deploy `ignition/modules/HToken.ts`; that module deploys a new proxy.
+Confirm Foundry can see the Ledger:
 
 ```bash
-HARDHAT_VAR_INFURA_API_KEY="$INFURA_API_KEY" \
-HARDHAT_VAR_ETHERSCAN_API_KEY="$ETHERSCAN_API_KEY" \
-HARDHAT_VAR_SEPOLIA_TESTNET_PRIVATE_KEY="$DEPLOYER_PRIVATE_KEY" \
-npx hardhat ignition deploy ignition/modules/HTokenImplementation.ts --network ethereumMainnet
+cast wallet list --ledger
+```
+
+Deploy only the implementation contract:
+
+```bash
+~/.foundry/bin/forge create contracts/HToken.sol:HToken \
+  --rpc-url "$MAINNET_RPC_URL" \
+  --chain 1 \
+  --ledger \
+  --broadcast \
+  --verify \
+  --verifier etherscan \
+  --etherscan-api-key "$ETHERSCAN_API_KEY"
 ```
 
 Save the deployed address:
 
 ```bash
 export NEW_IMPLEMENTATION_ADDRESS="<address from deployment output>"
+```
+
+If the Ledger uses a non-default derivation path, add this flag to the `forge create` command:
+
+```bash
+--mnemonic-derivation-path "m/44'/60'/0'/0/0"
 ```
 
 Confirm the deployed implementation has code:
@@ -125,12 +147,11 @@ Go/no-go:
 | --- | --- |
 | Output | not `0x` |
 
-Verify the implementation contract:
+If automatic verification did not complete, verify the implementation contract:
 
 ```bash
-HARDHAT_VAR_INFURA_API_KEY="$INFURA_API_KEY" \
+HARDHAT_VAR_MAINNET_RPC_URL="$MAINNET_RPC_URL" \
 HARDHAT_VAR_ETHERSCAN_API_KEY="$ETHERSCAN_API_KEY" \
-HARDHAT_VAR_SEPOLIA_TESTNET_PRIVATE_KEY="$DEPLOYER_PRIVATE_KEY" \
 npx hardhat verify --network ethereumMainnet "$NEW_IMPLEMENTATION_ADDRESS"
 ```
 
@@ -467,13 +488,12 @@ Run:
 ```bash
 git diff -- contracts/HToken.sol
 ~/.foundry/bin/forge test
-HARDHAT_VAR_INFURA_API_KEY="$INFURA_API_KEY" \
+HARDHAT_VAR_MAINNET_RPC_URL="$MAINNET_RPC_URL" \
 HARDHAT_VAR_ETHERSCAN_API_KEY="$ETHERSCAN_API_KEY" \
-HARDHAT_VAR_SEPOLIA_TESTNET_PRIVATE_KEY="$DEPLOYER_PRIVATE_KEY" \
 npx hardhat compile
 ```
 
-Then use the same `Deploy Implementation`, `Pre-Upgrade Checks`, `Safe Transaction Checks`, `Submit Safe Transaction`, `Final Go/No-Go Checklist`, and `Shared Post-Upgrade Checks` sections with the unpaused `NEW_IMPLEMENTATION_ADDRESS`.
+Then use the same `Deploy Implementation With Ledger`, `Pre-Upgrade Checks`, `Safe Transaction Checks`, `Submit Safe Transaction`, `Final Go/No-Go Checklist`, and `Shared Post-Upgrade Checks` sections with the unpaused `NEW_IMPLEMENTATION_ADDRESS`.
 
 The Safe transaction remains:
 
