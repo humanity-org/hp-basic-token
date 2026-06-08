@@ -70,7 +70,7 @@ Do not deploy a new proxy for either mode.
 5. Run the Foundry tests.
 
    ```bash
-   /Users/paulpierre/.foundry/bin/forge test
+   ~/.foundry/bin/forge test
    ```
 
 6. Compile with Hardhat.
@@ -466,7 +466,7 @@ Run:
 
 ```bash
 git diff -- contracts/HToken.sol
-/Users/paulpierre/.foundry/bin/forge test
+~/.foundry/bin/forge test
 HARDHAT_VAR_INFURA_API_KEY="$INFURA_API_KEY" \
 HARDHAT_VAR_ETHERSCAN_API_KEY="$ETHERSCAN_API_KEY" \
 HARDHAT_VAR_SEPOLIA_TESTNET_PRIVATE_KEY="$DEPLOYER_PRIVATE_KEY" \
