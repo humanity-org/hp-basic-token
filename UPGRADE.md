@@ -74,13 +74,19 @@ export ETHERSCAN_API_KEY="<etherscan api key>"
    | Pause mode | `_update()` override is present and reverts with `H_TOKEN_TRANSFERS_PAUSED` |
    | Unpause mode | pause `_update()` override is absent |
 
-5. Run the Foundry tests.
+5. Install npm dependencies.
+
+   ```bash
+   npm ci
+   ```
+
+6. Run the Foundry tests.
 
    ```bash
    ~/.foundry/bin/forge test
    ```
 
-6. Compile with Hardhat.
+7. Compile with Hardhat.
 
    ```bash
    HARDHAT_VAR_MAINNET_RPC_URL="$MAINNET_RPC_URL" \
@@ -88,7 +94,7 @@ export ETHERSCAN_API_KEY="<etherscan api key>"
    npx hardhat compile
    ```
 
-7. Confirm the target RPC is mainnet.
+8. Confirm the target RPC is mainnet.
 
    ```bash
    cast chain-id --rpc-url "$MAINNET_RPC_URL"
@@ -487,6 +493,7 @@ Run:
 
 ```bash
 git diff -- contracts/HToken.sol
+npm ci
 ~/.foundry/bin/forge test
 HARDHAT_VAR_MAINNET_RPC_URL="$MAINNET_RPC_URL" \
 HARDHAT_VAR_ETHERSCAN_API_KEY="$ETHERSCAN_API_KEY" \
