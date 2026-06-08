@@ -320,7 +320,31 @@ Before signing, confirm all four items:
 3. Implementation argument is `NEW_IMPLEMENTATION_ADDRESS`
 4. Data argument is empty bytes: `0x`
 
-Collect the required multisig approvals and execute.
+## Ledger Multisig Approval
+
+Each signer using a Ledger should approve through Safe:
+
+1. Connect the Ledger to the signer machine.
+2. Unlock the Ledger and open the Ethereum app.
+3. In Safe, connect the wallet account that is an owner of `0x7BbC0d5167017092e2ba599dE6062080b891f645`.
+4. Open the pending transaction.
+5. Confirm the Safe UI shows:
+
+   | Field | Required value |
+   | --- | --- |
+   | To | `0x70ea1D45DF2d305628c1757076B57C56bd5D0Fd4` |
+   | Value | `0` ETH |
+   | Function | `upgradeAndCall(address,address,bytes)` |
+   | `proxy` | `0xcf5104D094e3864CfCBDa43B82e1cEFD26A016eB` |
+   | `implementation` | `NEW_IMPLEMENTATION_ADDRESS` |
+   | `data` | `0x` |
+
+6. Approve the transaction in Safe.
+7. Confirm the signature on the Ledger device.
+
+After the required approvals are collected, execute the transaction from Safe with a Ledger-backed owner account if the executor is also using Ledger.
+
+Before executing, confirm the same fields again in Safe. Do not execute if the Safe UI shows a different target, proxy, implementation, data value, or ETH value.
 
 ## Final Go/No-Go Checklist
 
