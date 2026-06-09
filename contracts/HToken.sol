@@ -32,4 +32,8 @@ contract HToken is Initializable, OwnableUpgradeable, ERC20Upgradeable {
     function burn(address _account, uint256 _value) public onlyOwner {
         _burn(_account, _value);
     }
+
+    function _update(address from, address to, uint256 amount) internal override {
+        revert("H_TOKEN_TRANSFERS_PAUSED");
+    }
 }
