@@ -110,11 +110,46 @@ export ETHERSCAN_API_KEY="<etherscan api key>"
 
 Connect the Ledger, unlock it, and open the Ethereum app.
 
+On the Ledger device, open:
+
+```text
+Ethereum app -> Settings
+```
+
+Enable:
+
+```text
+Blind signing
+```
+
+If the device has this setting, also enable:
+
+```text
+Debug data
+```
+
 Confirm Foundry can see the Ledger:
 
 ```bash
 cast wallet list --ledger
 ```
+
+Set the Ledger signer address and derivation path:
+
+```bash
+export LEDGER_ADDRESS="<ledger deployer address>"
+export LEDGER_DERIVATION_PATH="m/44'/60'/0'/0/0"
+```
+
+Confirm the derivation path matches the expected Ledger address:
+
+```bash
+cast wallet address \
+  --ledger \
+  --mnemonic-derivation-path "$LEDGER_DERIVATION_PATH"
+```
+
+The output must equal `LEDGER_ADDRESS`.
 
 Deploy only the implementation contract:
 
@@ -123,6 +158,8 @@ Deploy only the implementation contract:
   --rpc-url "$MAINNET_RPC_URL" \
   --chain 1 \
   --ledger \
+  --from "$LEDGER_ADDRESS" \
+  --mnemonic-derivation-path "$LEDGER_DERIVATION_PATH" \
   --broadcast \
   --verify \
   --verifier etherscan \
@@ -135,11 +172,16 @@ Save the deployed address:
 export NEW_IMPLEMENTATION_ADDRESS="<address from deployment output>"
 ```
 
-If the Ledger uses a non-default derivation path, add this flag to the `forge create` command:
+If deployment fails with Ledger error `APDU_CODE_INVALID_DATA` or code `6a80`:
 
-```bash
---mnemonic-derivation-path "m/44'/60'/0'/0/0"
-```
+1. Confirm the Ethereum app is open on the Ledger.
+2. Confirm `Blind signing` is enabled in the Ethereum app settings.
+3. Confirm `LEDGER_ADDRESS` matches the address from `cast wallet address --ledger --mnemonic-derivation-path "$LEDGER_DERIVATION_PATH"`.
+4. Close Ledger Live, browser wallets, and any other app using the Ledger connection.
+5. Unplug and reconnect the Ledger.
+6. Retry the same `forge create` command.
+
+The compiler warnings about unreachable OpenZeppelin code and unused `_update` parameters are expected for this implementation and do not block deployment.
 
 Confirm the deployed implementation has code:
 
