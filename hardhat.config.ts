@@ -17,29 +17,8 @@ const config: HardhatUserConfig = {
     enabled: true,
   },
   etherscan: {
-    apiKey: {
-      ethereumMainnet: ETHERSCAN_API_KEY,
-      ethereumSepolia: ETHERSCAN_API_KEY,
-      arbitrumSepolia: ETHERSCAN_API_KEY,
-    },
-    customChains: [
-      {
-        network: "ethereumMainnet",
-        chainId: 1,
-        urls: {
-          apiURL: "https://api.etherscan.io/api",
-          browserURL: "https://etherscan.io/",
-        },
-      },
-      {
-        network: "ethereumSepolia",
-        chainId: 11155111,
-        urls: {
-          apiURL: "https://api-sepolia.etherscan.io/api",
-          browserURL: "https://sepolia.etherscan.io/",
-        },
-      },
-    ],
+    // Etherscan API V2: one key for all chains, routed by chain id.
+    apiKey: ETHERSCAN_API_KEY,
   },
   networks: {
     ethereumMainnet: {
