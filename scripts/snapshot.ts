@@ -11,6 +11,9 @@
 //                        addresses to exclude from the holder set    (optional)
 //   SNAPSHOT_OUT         output path (default distribution-data/snapshot-<block>.json)
 //   SNAPSHOT_CONCURRENCY concurrent RPC requests                     (default 8)
+//   SNAPSHOT_CHUNK_SIZE  blocks per eth_getLogs request; keep small
+//                        enough that no chunk exceeds the RPC
+//                        provider's log-response cap                 (default 10000)
 //   SNAPSHOT_CHECKPOINT  checkpoint path for crash-safe resume
 //                        (default distribution-data/checkpoint-<block>.json)
 //
@@ -46,6 +49,7 @@ async function main() {
     fromBlock,
     excludeAddresses,
     concurrency: parseInt(process.env.SNAPSHOT_CONCURRENCY ?? "8", 10),
+    chunkSize: parseInt(process.env.SNAPSHOT_CHUNK_SIZE ?? "10000", 10),
     checkpointPath,
     log: console.log,
   });
