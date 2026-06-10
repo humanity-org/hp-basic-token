@@ -10,6 +10,9 @@
 //   SNAPSHOT_EXCLUSIONS  path to a JSON file with an array of
 //                        addresses to exclude from the holder set    (optional)
 //   SNAPSHOT_OUT         output path (default distribution-data/snapshot-<block>.json)
+//   SNAPSHOT_CONCURRENCY concurrent RPC requests                     (default 8)
+//   SNAPSHOT_CHECKPOINT  checkpoint path for crash-safe resume
+//                        (default distribution-data/checkpoint-<block>.json)
 //
 // The output and any exclusion files live under distribution-data/, which is
 // gitignored: distribution inputs are working data, never committed.
@@ -35,9 +38,15 @@ async function main() {
     );
   }
 
+  const checkpointPath =
+    process.env.SNAPSHOT_CHECKPOINT ??
+    path.join("distribution-data", `checkpoint-${snapshotBlock}.json`);
+
   const snapshot = await buildSnapshot(ethers.provider, token, snapshotBlock, {
     fromBlock,
     excludeAddresses,
+    concurrency: parseInt(process.env.SNAPSHOT_CONCURRENCY ?? "8", 10),
+    checkpointPath,
     log: console.log,
   });
 

@@ -53,8 +53,17 @@ tmux/screen on a stable machine with an archive-capable RPC.
 SNAPSHOT_TOKEN=<source-token> SNAPSHOT_BLOCK=<block> \
 SNAPSHOT_FROM_BLOCK=<source-token-deploy-block> \
 SNAPSHOT_EXCLUSIONS=distribution-data/exclusions.json \
+SNAPSHOT_CONCURRENCY=8 \
   npx hardhat run scripts/snapshot.ts --network <network>
 ```
+
+Requests run in parallel (`SNAPSHOT_CONCURRENCY`, default 8 — size it to
+your RPC plan's rate limit) with retry/backoff; a permanent failure aborts
+rather than skips. Progress is checkpointed to
+`distribution-data/checkpoint-<block>.json`: if the run crashes, re-run the
+same command and it resumes where it stopped. The checkpoint is locked to
+the run parameters, and resumed runs still pass through the full
+conservation and cross-check verification.
 
 Expected: `distribution-data/snapshot-<block>.json` written, with the
 conservation and cross-checks passed (the script aborts on any mismatch).
