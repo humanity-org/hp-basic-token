@@ -6,7 +6,7 @@ import "solidity-docgen";
 
 const SEPOLIA_TESTNET_PRIVATE_KEY = vars.get("SEPOLIA_TESTNET_PRIVATE_KEY");
 const ETHERSCAN_API_KEY = vars.get("ETHERSCAN_API_KEY");
-const INFURA_API_KEY = vars.get("INFURA_API_KEY");
+const ALCHEMY_API_KEY = vars.get("ALCHEMY_API_KEY");
 
 const config: HardhatUserConfig = {
   solidity: "0.8.28",
@@ -41,12 +41,12 @@ const config: HardhatUserConfig = {
   },
   networks: {
     ethereumMainnet: {
-      url: "https://mainnet.infura.io/v3/" + INFURA_API_KEY,
+      url: "https://eth-mainnet.g.alchemy.com/v2/" + ALCHEMY_API_KEY,
       chainId: 1,
       accounts: [SEPOLIA_TESTNET_PRIVATE_KEY],
     },
     ethereumSepolia: {
-      url: "https://sepolia.infura.io/v3/" + INFURA_API_KEY,
+      url: "https://eth-sepolia.g.alchemy.com/v2/" + ALCHEMY_API_KEY,
       chainId: 11155111,
       accounts: [SEPOLIA_TESTNET_PRIVATE_KEY],
     },
