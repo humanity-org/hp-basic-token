@@ -5,6 +5,8 @@ import "@nomicfoundation/hardhat-verify";
 import "solidity-docgen";
 
 const SEPOLIA_TESTNET_PRIVATE_KEY = vars.get("SEPOLIA_TESTNET_PRIVATE_KEY");
+// Mainnet deployer key; falls back to the testnet key so the config loads everywhere.
+const ETHEREUM_PRIVATE_KEY = vars.get("ETHEREUM_PRIVATE_KEY", SEPOLIA_TESTNET_PRIVATE_KEY);
 const ETHERSCAN_API_KEY = vars.get("ETHERSCAN_API_KEY");
 const ALCHEMY_API_KEY = vars.get("ALCHEMY_API_KEY");
 
@@ -43,7 +45,7 @@ const config: HardhatUserConfig = {
     ethereumMainnet: {
       url: "https://eth-mainnet.g.alchemy.com/v2/" + ALCHEMY_API_KEY,
       chainId: 1,
-      accounts: [SEPOLIA_TESTNET_PRIVATE_KEY],
+      accounts: [ETHEREUM_PRIVATE_KEY],
     },
     ethereumSepolia: {
       url: "https://eth-sepolia.g.alchemy.com/v2/" + ALCHEMY_API_KEY,
