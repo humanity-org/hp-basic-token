@@ -1,0 +1,5 @@
+{
+    "HTokenModule": {
+        "multisig": "REPLACE_WITH_OWNER_MULTISIG_BEFORE_DEPLOY"
+    }
+}
